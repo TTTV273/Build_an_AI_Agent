@@ -1,2 +1,8 @@
+# Environment variables
 .env
+
+# Gemini settings
 .gemini/settings.json
+
+# Python cache
+__pycache__/
