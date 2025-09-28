@@ -66,6 +66,14 @@ To use the calculator tool, run its `main.py` script with an expression:
 python calculator/main.py "3 + 5"
 ```
 
+### Running Tests
+
+To run the test suite:
+
+```bash
+uv run tests.py
+```
+
 ## Development Conventions
 
 *   The project follows a modular structure, with tools and functionalities separated into their own directories.
@@ -75,3 +83,12 @@ python calculator/main.py "3 + 5"
 ## Course Context
 
 This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building practical AI agents rather than training LLMs from scratch.
+
+---
+
+## User Preferences
+
+*   **Learning Method:** The user prefers to learn using the Socratic method. I should act as a guide, asking questions to help them arrive at the solution, rather than implementing it directly. (2025-09-25)
+*   **Socratic Method Feedback:** This method is highly effective. The user responds well to guided questions, analogies, and breaking down complex problems into smaller, concrete steps. (2025-09-25)
+*   **Interaction Pattern:** The user prefers an iterative workflow with frequent validation (e.g., "check my code") after each small change. (2025-09-25)
+*   **Key Challenge Area:** Structuring control flow (`if/else` logic) and combining multiple logical steps into a cohesive whole can be challenging and may require more detailed guidance. (2025-09-25)
