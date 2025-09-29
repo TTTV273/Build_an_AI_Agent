@@ -1,0 +1,36 @@
+
+description = "Automatically create a commit to save the learning progress."
+prompt = '''
+**Input**: `{{args}}` - A JSON string containing the analyzed data from a lesson (to be used in the commit message).
+
+## Commit Process
+
+1.  **Check Status**:
+    -   Run the `git status` command to see the changed files (including the workflow, tool, and markdown documentation files just updated).
+
+2.  **Stage Files**:
+    -   Run the `git add .` command to add all changes to the staging area.
+
+3.  **Create Commit Message**:
+    -   Parse the input JSON string.
+    -   Create a meaningful commit message in the Conventional Commits format, using the following template:
+
+    ```
+    📚 L[Lesson Number] Review: [Lesson Name]
+
+    ✅ Mastered: [Key Concepts]
+    🔗 Connected: [Applied Programming Patterns]
+    💡 Insight: [Key Insight]
+    📈 Progress: [Skill Progression]
+
+    Memory updated: Boot_Dev_Course, Progress_Tracker, [Skill_Domain]
+    Next focus: [Next topics, if any]
+    ```
+
+4.  **Execute Commit**:
+    -   Run the `git commit -m "..."` command with the generated message.
+
+5.  **Report**:
+    -   Announce that the changes have been committed successfully.
+    -   Display the output of `git log -n 1` for confirmation.
+'''

@@ -1,0 +1,46 @@
+
+description = "Deeply analyze a completed lesson and extract core concepts."
+prompt = '''
+**Input**: `{{args}}` - The name or number of the lesson (e.g., "L15_Debugging_Functions").
+
+## Analysis Process
+
+1.  **Lesson Analysis (Reinforcement)**:
+    -   Thoroughly read the specified lesson's `Lesson.md` file.
+    -   Identify the core **programming concepts** introduced in the lesson.
+    -   Note the Vietnamese explanations and practical examples.
+
+2.  **Source Code Analysis (Implementation Patterns)**:
+    -   Analyze the corresponding `main.py` file.
+    -   Identify applied **programming patterns and principles** (e.g., design patterns, algorithms, data structures, language features, architectural styles like OOP or Functional).
+    -   Evaluate code structure, readability, and adherence to clean code principles.
+
+3.  **Concept Connection Mapping**:
+    -   Connect the lesson's concepts to previously learned knowledge.
+    -   Identify related design patterns or broader software development principles.
+    -   Note new insights regarding performance, maintainability, or scalability.
+
+## Output Format
+
+The agent must return a single JSON object, with no additional explanation, following this structure:
+
+```json
+{
+  "lesson_name": "Lesson Name",
+  "key_concepts": [
+    "Concept 1: Brief explanation",
+    "Concept 2: Brief explanation"
+  ],
+  "implementation_patterns": [
+    "Pattern 1: Description of its application in the code",
+    "Pattern 2: Description of its application in the code"
+  ],
+  "concept_connections": [
+    "Connection 1: Link to a previous lesson/concept",
+    "Connection 2: Relation to Design Pattern X"
+  ],
+  "main_learning_insight": "The most important insight gained from this lesson.",
+  "skill_progression": "Brief description of skill progression (e.g., 'From basic understanding of recursion to applying conditional recursion')."
+}
+```
+'''
