@@ -92,3 +92,12 @@ This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building
 *   **Socratic Method Feedback:** This method is highly effective. The user responds well to guided questions, analogies, and breaking down complex problems into smaller, concrete steps. (2025-09-25)
 *   **Interaction Pattern:** The user prefers an iterative workflow with frequent validation (e.g., "check my code") after each small change. (2025-09-25)
 *   **Key Challenge Area:** Structuring control flow (`if/else` logic) and combining multiple logical steps into a cohesive whole can be challenging and may require more detailed guidance. (2025-09-25)
+
+## 📚 Lesson Review: CH3-L1_System_Prompt
+**Completed**: 2025-09-29
+**Status**: ✅ Completed
+
+### Learning Summary:
+- **Lesson Focus**: Understanding and implementing a system prompt to control AI behavior.
+- **Implementation Approach**: Added a `system_prompt` variable to `main.py` and passed it to the `generate_content` function's configuration.
+- **Key Insight**: The system prompt provides a powerful way to give instructions and context to the LLM, overriding user input when necessary.
