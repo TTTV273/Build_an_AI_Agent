@@ -21,7 +21,7 @@ prompt = '''
     ```
 
 3.  **Identify Target File**:
-    -   Identify the main documentation file to update. Defaults to `CLAUDE.MD`.
+    -   Identify the main documentation file to update. Defaults to `CLAUDE.MD`, and `GEMINI.MD`.
 
 4.  **Execute Update**:
     -   Use `read_file` to read the current content of the target file.

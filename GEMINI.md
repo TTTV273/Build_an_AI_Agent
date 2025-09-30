@@ -92,6 +92,7 @@ This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building
 *   **Socratic Method Feedback:** This method is highly effective. The user responds well to guided questions, analogies, and breaking down complex problems into smaller, concrete steps. (2025-09-25)
 *   **Interaction Pattern:** The user prefers an iterative workflow with frequent validation (e.g., "check my code") after each small change. (2025-09-25)
 *   **Key Challenge Area:** Structuring control flow (`if/else` logic) and combining multiple logical steps into a cohesive whole can be challenging and may require more detailed guidance. (2025-09-25)
+*   **Language:** The user prefers to communicate in Vietnamese. (2025-09-30)
 
 ## 📚 Lesson Review: CH3-L1_System_Prompt
 **Completed**: 2025-09-29
@@ -101,3 +102,25 @@ This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building
 - **Lesson Focus**: Understanding and implementing a system prompt to control AI behavior.
 - **Implementation Approach**: Added a `system_prompt` variable to `main.py` and passed it to the `generate_content` function's configuration.
 - **Key Insight**: The system prompt provides a powerful way to give instructions and context to the LLM, overriding user input when necessary.
+
+## 📚 Lesson: CH3-L2_Function_Declaration
+**Started**: 2025-09-30
+**Status**: 🟡 In Progress
+
+### Learning Focus:
+- **Primary Concept**: Declaring functions for the LLM to use.
+- **Application**: Defining a schema for the `get_files_info` function and making it available to the model.
+
+## 📚 Lesson Review: CH3-L2_Function_Declaration
+**Completed**: 2025-09-30
+**Status**: ✅ Completed
+
+### Learning Summary:
+- **Lesson Focus**: Function Calling, `FunctionDeclaration`, `Tool`.
+- **Implementation Approach**: Defined a schema for `get_files_info` in its own file, created a `Tool` object in `main.py`, passed it to the `generate_content` API call, and updated the response handling logic to check for `function_calls` using an if/else block and a for loop.
+- **Key Insight**: The LLM acts as a decision-making engine that outputs a structured request (`FunctionCall`), not as a direct code executor. Our application code is responsible for interpreting this request and executing the corresponding Python function.
+
+### Knowledge Integration:
+- **Previous Lesson Connections**: This lesson directly builds on CH3-L1 by adding the `tools` parameter to the `generate_content` call, alongside the `system_instruction`. It makes the functions from Chapter 2 usable by the agent.
+- **Vocabulary Expansion**: `FunctionDeclaration` (the 'menu' for a function), `Schema` (defines parameters), `Tool` (a collection of functions for the LLM), `FunctionCall` (the LLM's request to run a function).
+- **Application Insights**: This is the fundamental pattern for giving an LLM agent capabilities to interact with any external system, such as APIs, databases, or the local file system. It transforms the LLM from a simple chatbot into an active agent.

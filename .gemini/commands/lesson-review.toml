@@ -56,9 +56,9 @@ Structure learning documentation with:
 ## 6. COMMIT STRATEGY
 Create a descriptive commit message:
 ```bash
-git commit -m "✅ Review: {{args}}
+git commit -m "✅ Completed: {{args}}
 
-Mastered: ${KEY_CONCEPTS}
+Applied: ${KEY_CONCEPTS}
 Insight: ${MAIN_LEARNING_INSIGHT}" 
 ```
 

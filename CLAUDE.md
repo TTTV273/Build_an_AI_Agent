@@ -67,3 +67,27 @@ This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building
 - **Reinforcement Needed**: None at the moment.
 - **Advanced Applications**: Appending to files, creating temporary files, and handling binary data.
 - **Practice Opportunities**: Create a function to log agent activities to a file.
+
+### 📝 Lesson Summary: CH3-L2: Function Declaration
+
+- **Lesson Focus**: Function Calling architecture, FunctionDeclaration schema creation, Tool container configuration, LLM reasoning vs execution separation
+- **Implementation Approach**: Created `schema_get_files_info` using `types.FunctionDeclaration` to describe the function interface to the LLM. Configured `types.Tool` with function declarations and passed to `GenerateContentConfig`. Implemented conditional response handling to check `response.function_calls` vs `response.text`.
+- **Testing Results**: Successfully demonstrated LLM function call generation with test queries about file listing in different directories.
+
+### Pattern Recognition Progress:
+
+- **New Patterns**: Command Pattern (LLM as Client, Python as Invoker), Schema-driven Development, Security by Design (parameter hiding)
+- **Pattern Connections**: Similar to OpenAPI/Swagger documentation (machine-readable API specs), Plugin architecture (extensible function library), Separation of concerns (reasoning vs execution)
+- **Confidence Level**: High - production-ready function declaration implementation
+
+### Knowledge Integration:
+
+- **Previous Lesson Connections**: Builds on CH3-L1 system prompts by adding actionable capabilities. Integrates CH2 file operations (get_files_info) with AI reasoning layer. Demonstrates progression: System instruction → Function calling → Agent actions
+- **Vocabulary Expansion**: `FunctionDeclaration`, `types.Schema`, `types.Type.OBJECT`, `types.Tool`, `response.function_calls`, Command Pattern
+- **Application Insights**: LLMs don't execute code - they generate structured requests. The application maintains full control and security. This architecture scales through plugin patterns as more functions are added.
+
+### Areas for Future Focus:
+
+- **Reinforcement Needed**: Understanding function call loops and multi-step reasoning chains
+- **Advanced Applications**: Multiple function declarations, function call error handling, iterative agent loops
+- **Practice Opportunities**: Add more function declarations (get_file_content, write_file), implement function execution logic, build complete agent loop
