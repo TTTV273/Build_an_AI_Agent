@@ -3,6 +3,16 @@ Deeply analyze a completed lesson and extract core concepts.
 
 **Input**: `$ARGUMENTS` - The name or number of the lesson (e.g., "L15_Debugging_Functions").
 
+## ⚠️ CRITICAL: Assessment Guidelines
+
+**BEFORE analyzing, review**: `.claude/commands/tools/assessment-guidelines.md`
+
+**Key Rules**:
+- ❌ NEVER use: "mastery", "expert", "advanced mastery"
+- ✅ ALWAYS use: "completed successfully", "can apply", "solid understanding"
+- Focus on EVIDENCE: test scores, working code, demonstrated capabilities
+- Learner is LEARNING, not an expert professional
+
 ## Analysis Process
 
 1.  **Lesson Analysis (Reinforcement)**:
@@ -40,6 +50,36 @@ The agent must return a single JSON object, with no additional explanation, foll
     "Connection 2: Relation to Design Pattern X"
   ],
   "main_learning_insight": "The most important insight gained from this lesson.",
-  "skill_progression": "Brief description of skill progression (e.g., 'From basic understanding of recursion to applying conditional recursion')."
+  "skill_progression": "Brief description of skill progression using APPROVED terminology."
+}
+```
+
+## ✅ Example Output (CORRECT Terminology):
+
+```json
+{
+  "lesson_name": "CH3-L3: More Declarations",
+  "key_concepts": [
+    "FunctionDeclaration Scaling: Extending from single to multiple function toolkit",
+    "Schema Type System: Understanding types.Type.STRING and types.Type.ARRAY"
+  ],
+  "implementation_patterns": [
+    "Pattern Replication: Consistently applying FunctionDeclaration structure across 4 schemas",
+    "Module Organization: Co-locating schema definitions with implementations"
+  ],
+  "concept_connections": [
+    "Builds on CH3-L2 single FunctionDeclaration pattern",
+    "Connects to OpenAPI/Swagger documentation patterns"
+  ],
+  "main_learning_insight": "Successfully built complete AI agent toolkit by replicating schema patterns. Quality of descriptions directly affects LLM function selection accuracy.",
+  "skill_progression": "From single-function LLM integration (L2) to successfully implementing multi-function toolkit with CRUD operations. Can now apply schema patterns consistently across multiple functions."
+}
+```
+
+## ❌ Example Output (WRONG Terminology - DO NOT USE):
+
+```json
+{
+  "skill_progression": "From basic to advanced mastery of FunctionDeclaration. Achieved expert-level schema expertise."
 }
 ```

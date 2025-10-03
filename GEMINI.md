@@ -104,12 +104,21 @@ This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building
 - **Key Insight**: The system prompt provides a powerful way to give instructions and context to the LLM, overriding user input when necessary.
 
 ## 📚 Lesson: CH3-L2_Function_Declaration
-**Started**: 2025-09-30
+**Completed**: 2025-10-01
+**Status**: ✅ Completed
+
+### Learning Summary:
+- **Lesson Focus**: Declaring functions for the LLM to use.
+- **Implementation Approach**: Defined a schema for the `get_files_info` function and made it available to the model.
+- **Key Insight**: Function declarations (schemas) allow the LLM to understand how to use the tools we provide.
+
+## 📚 Lesson: CH3-L3_More_Declarations
+**Started**: 2025-10-01
 **Status**: 🟡 In Progress
 
 ### Learning Focus:
-- **Primary Concept**: Declaring functions for the LLM to use.
-- **Application**: Defining a schema for the `get_files_info` function and making it available to the model.
+- **Primary Concept**: Declaring multiple function schemas for the LLM.
+- **Application**: Making `get_file_content`, `run_python_file`, and `write_file` available to the model.
 
 ## 📚 Lesson Review: CH3-L2_Function_Declaration
 **Completed**: 2025-09-30

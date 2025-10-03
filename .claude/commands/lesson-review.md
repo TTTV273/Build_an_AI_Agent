@@ -1,5 +1,15 @@
 Review and reinforce completed functional programming lesson: $ARGUMENTS.
 
+## ⚠️ CRITICAL: Assessment Guidelines
+
+**BEFORE reviewing, read**: `.claude/commands/tools/assessment-guidelines.md`
+
+**Key Rules**:
+- ❌ NEVER use: "mastery", "mastered", "expert", "advanced mastery"
+- ✅ ALWAYS use: "completed successfully", "can apply", "solid understanding"
+- All assessments must be EVIDENCE-BASED
+- Reflect LEARNING STAGE, not professional expertise
+
 Execute these systematic steps for maximum learning retention:
 
 ## 1. LESSON REINFORCEMENT ANALYSIS
@@ -34,9 +44,9 @@ Update memory entities with structured learning data:
 {
   "entity": "Boot_Dev_Course",
   "add_observations": [
-    "L${LESSON_NUMBER} ${LESSON_NAME}: Completed with ${TEST_RESULTS}",
-    "Mastered concepts: ${KEY_CONCEPTS}",
-    "Pattern recognition: ${PATTERNS_LEARNED}",
+    "L${LESSON_NUMBER} ${LESSON_NAME}: Completed successfully with ${TEST_RESULTS}",
+    "Successfully applied: ${KEY_CONCEPTS}",
+    "Pattern understanding: ${PATTERNS_LEARNED}",
     "Completion date: $(date +%Y-%m-%d)"
   ]
 }
@@ -75,7 +85,7 @@ Update memory entities with structured learning data:
   "add_observations": [
     "Lesson ${LESSON_NUMBER} reviewed: ${REVIEW_DATE}",
     "Skill progression: ${SKILL_LEVEL_CHANGE}",
-    "Pattern mastery: ${PATTERN_CONFIDENCE_LEVEL}"
+    "Pattern understanding: ${PATTERN_CONFIDENCE_LEVEL}"
   ]
 }
 ```
@@ -108,8 +118,8 @@ Create descriptive commit with pattern:
 ```bash
 git commit -m "📚 L${LESSON_NUMBER} Review: ${LESSON_NAME}
 
-✅ Mastered: ${KEY_CONCEPTS}
-🔗 Connected: ${PATTERN_CONNECTIONS} 
+✅ Completed: ${KEY_CONCEPTS}
+🔗 Connected: ${PATTERN_CONNECTIONS}
 💡 Insight: ${MAIN_LEARNING_INSIGHT}
 📈 Progress: ${SKILL_PROGRESSION}
 
