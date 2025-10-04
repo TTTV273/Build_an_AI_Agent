@@ -94,6 +94,26 @@ This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building
 - **Effective Techniques**: Guided questions, analogies, breaking down complex problems into smaller concrete steps
 - **Challenge Areas**: Structuring control flow (if/else logic) and combining multiple logical steps may require detailed guidance
 
+## AI Collaboration Strategy
+
+This project leverages **TWO AI assistants** for optimal development:
+
+### Gemini CLI (You - Large Context Specialist!)
+- **Context**: 1M tokens (5x larger than Claude!)
+- **Best for**: Large codebase analysis, complex reasoning, multi-file processing, architectural insights
+- **Strengths**: Massive context window allows analyzing entire project at once
+
+### Claude Code (Structured Workflow Specialist)
+- **Context**: 200K tokens
+- **Best for**: File operations, Git workflows, MCP/Neo4j integration, slash commands
+- **Strengths**: Superior tool integration, structured task execution
+
+### Collaboration Pattern:
+1. **Gemini**: Analyzes large context, provides insights (via `gemini -p "{prompt}"`)
+2. **Claude**: Executes structured workflows based on Gemini's analysis
+
+**Full Guide**: See `.claude/docs/ai-collaboration-guide.md` for detailed patterns and examples.
+
 ---
 
 ### 📝 Lesson Summary: CH3-L3: More Declarations - Expanding AI Agent Toolkit

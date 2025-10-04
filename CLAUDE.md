@@ -45,6 +45,36 @@ This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building
 - **Effective Techniques**: Guided questions, analogies, breaking down complex problems into smaller concrete steps
 - **Challenge Areas**: Structuring control flow (if/else logic) and combining multiple logical steps may require detailed guidance
 
+## AI Collaboration Strategy
+
+This project uses **TWO AI assistants** for optimal workflow:
+
+### Claude Code (Primary - You!)
+- **Context**: 200K tokens
+- **Best for**: File operations, Git workflows, structured tasks, MCP/Neo4j integration
+- **Usage**: Default for all development tasks
+
+### Gemini CLI (Secondary - Large Context)
+- **Context**: 1M tokens (5x larger!)
+- **Best for**: Large codebase analysis, complex reasoning, multi-file processing
+- **Usage**: `gemini -p "{prompt}"`
+
+### When to Delegate to Gemini:
+1. **Context overflow**: When approaching 150K+ tokens
+2. **Large analysis**: Need to analyze 20+ files simultaneously
+3. **Deep reasoning**: Complex architectural decisions requiring massive context
+
+### Example Delegation:
+```bash
+# Gemini analyzes large context
+gemini -p "Analyze all Python files in CH1-CH3 and summarize patterns" > /tmp/analysis.txt
+
+# Claude processes result
+# Read /tmp/analysis.txt and continue with structured workflow
+```
+
+**Full Guide**: See `.claude/docs/ai-collaboration-guide.md` for detailed patterns and examples.
+
 ## Slash Commands Workflow
 
 ### Main Commands
