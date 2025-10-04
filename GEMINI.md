@@ -1,6 +1,6 @@
 # Project Overview
 
-This is a Boot.dev course project for building an AI Agent - a toy version of Claude Code using Google's Gemini API. The project teaches how agentic AI tools work under the hood by creating a CLI agent that can perform coding tasks through function calling. This project is a Python-based AI agent that leverages the Gemini API to create a conversational AI experience in the terminal. The agent is designed to be extensible with various tools and functions.
+This is a Boot.dev course project for building an AI Agent - a toy version of Claude Code using Google's Gemini API. The project teaches how agentic AI tools work under the hood by creating a CLI agent that can perform coding tasks through function calling.
 
 ## Core Components
 
@@ -86,50 +86,74 @@ This is part of Boot.dev's LLM course (Chapter 1, Lesson 1) focusing on building
 
 ---
 
-## User Preferences
+## User Learning Preferences
 
-*   **Learning Method:** The user prefers to learn using the Socratic method. I should act as a guide, asking questions to help them arrive at the solution, rather than implementing it directly. (2025-09-25)
-*   **Socratic Method Feedback:** This method is highly effective. The user responds well to guided questions, analogies, and breaking down complex problems into smaller, concrete steps. (2025-09-25)
-*   **Interaction Pattern:** The user prefers an iterative workflow with frequent validation (e.g., "check my code") after each small change. (2025-09-25)
-*   **Key Challenge Area:** Structuring control flow (`if/else` logic) and combining multiple logical steps into a cohesive whole can be challenging and may require more detailed guidance. (2025-09-25)
-*   **Language:** The user prefers to communicate in Vietnamese. (2025-09-30)
+- **Learning Method**: Socratic method preferred - act as a guide with questions to help arrive at solutions, rather than implementing directly
+- **Language**: Vietnamese preferred for communication
+- **Interaction Pattern**: Iterative workflow with frequent validation after each small change
+- **Effective Techniques**: Guided questions, analogies, breaking down complex problems into smaller concrete steps
+- **Challenge Areas**: Structuring control flow (if/else logic) and combining multiple logical steps may require detailed guidance
 
-## 📚 Lesson Review: CH3-L1_System_Prompt
-**Completed**: 2025-09-29
-**Status**: ✅ Completed
+---
 
-### Learning Summary:
-- **Lesson Focus**: Understanding and implementing a system prompt to control AI behavior.
-- **Implementation Approach**: Added a `system_prompt` variable to `main.py` and passed it to the `generate_content` function's configuration.
-- **Key Insight**: The system prompt provides a powerful way to give instructions and context to the LLM, overriding user input when necessary.
+### 📝 Lesson Summary: CH3-L3: More Declarations - Expanding AI Agent Toolkit
 
-## 📚 Lesson: CH3-L2_Function_Declaration
-**Completed**: 2025-10-01
-**Status**: ✅ Completed
+- **Lesson Focus**: FunctionDeclaration Scaling: Extending AI agent capabilities from single function to multiple function toolkit through consistent schema patterns, Schema Type System: Mastering types.Type.STRING for simple parameters and types.Type.ARRAY with items declaration for list parameters, Security by Design: Systematic hiding of working_directory parameter across all function schemas to maintain sandbox boundary control, Optional Parameter Communication: Using description conventions ('If not provided...') to indicate optional parameters without explicit required field in Gemini API, LLM Function Selection: Understanding how LLM uses function descriptions and parameter schemas to autonomously choose appropriate function based on natural language user intent
+- **Applied Programming Patterns**: Pattern Replication: Consistent FunctionDeclaration structure (name, description, parameters.properties) applied across all 4 schemas for maintainability, Module Organization: Separate schema definitions co-located with function implementations in individual module files (get_file_content.py, run_python_file.py, write_file.py), Tool Registry Pattern: Centralized types.Tool with function_declarations list enabling plugin-like architecture for function registration, System Instruction Layer: Separation of API documentation (schemas) from behavioral guidance (system_prompt) following separation of concerns principle, Professional API Documentation Style: Concise, passive-voice descriptions focusing on 'what' (functionality) not 'why' (implementation rationale), Type Safety: Explicit type declarations (STRING, ARRAY) with nested items schema for array element types ensuring type-safe LLM parameter generation
+- **Key Insight**: Building effective AI agents requires clear separation between LLM decision-making (through comprehensive function schemas) and Python execution control (through hidden security parameters). The quality of schema descriptions directly determines LLM's ability to autonomously select correct functions - professional, concise documentation is not just good practice but functional requirement for agent intelligence.
+- **Skill Progression**: From single-function LLM integration (L2) to complete multi-function AI agent toolkit with CRUD operations. Successfully applied schema type system (STRING vs ARRAY with items), pattern replication across multiple function declarations, and professional API documentation standards. Can now think in security-first design patterns by consistently hiding sensitive parameters across all schemas.
 
-### Learning Summary:
-- **Lesson Focus**: Declaring functions for the LLM to use.
-- **Implementation Approach**: Defined a schema for the `get_files_info` function and made it available to the model.
-- **Key Insight**: Function declarations (schemas) allow the LLM to understand how to use the tools we provide.
+### 📝 Lesson Summary: CH3-L2: Function Declaration
 
-## 📚 Lesson: CH3-L3_More_Declarations
-**Started**: 2025-10-01
-**Status**: 🟡 In Progress
+- **Lesson Focus**: Function Calling architecture, FunctionDeclaration schema creation, Tool container configuration, LLM reasoning vs execution separation
+- **Implementation Approach**: Created `schema_get_files_info` using `types.FunctionDeclaration` to describe the function interface to the LLM. Configured `types.Tool` with function declarations and passed to `GenerateContentConfig`. Implemented conditional response handling to check `response.function_calls` vs `response.text`.
+- **Testing Results**: Successfully demonstrated LLM function call generation with test queries about file listing in different directories.
 
-### Learning Focus:
-- **Primary Concept**: Declaring multiple function schemas for the LLM.
-- **Application**: Making `get_file_content`, `run_python_file`, and `write_file` available to the model.
+### Pattern Recognition Progress:
 
-## 📚 Lesson Review: CH3-L2_Function_Declaration
-**Completed**: 2025-09-30
-**Status**: ✅ Completed
-
-### Learning Summary:
-- **Lesson Focus**: Function Calling, `FunctionDeclaration`, `Tool`.
-- **Implementation Approach**: Defined a schema for `get_files_info` in its own file, created a `Tool` object in `main.py`, passed it to the `generate_content` API call, and updated the response handling logic to check for `function_calls` using an if/else block and a for loop.
-- **Key Insight**: The LLM acts as a decision-making engine that outputs a structured request (`FunctionCall`), not as a direct code executor. Our application code is responsible for interpreting this request and executing the corresponding Python function.
+- **New Patterns**: Command Pattern (LLM as Client, Python as Invoker), Schema-driven Development, Security by Design (parameter hiding)
+- **Pattern Connections**: Similar to OpenAPI/Swagger documentation (machine-readable API specs), Plugin architecture (extensible function library), Separation of concerns (reasoning vs execution)
+- **Confidence Level**: High - production-ready function declaration implementation
 
 ### Knowledge Integration:
-- **Previous Lesson Connections**: This lesson directly builds on CH3-L1 by adding the `tools` parameter to the `generate_content` call, alongside the `system_instruction`. It makes the functions from Chapter 2 usable by the agent.
-- **Vocabulary Expansion**: `FunctionDeclaration` (the 'menu' for a function), `Schema` (defines parameters), `Tool` (a collection of functions for the LLM), `FunctionCall` (the LLM's request to run a function).
-- **Application Insights**: This is the fundamental pattern for giving an LLM agent capabilities to interact with any external system, such as APIs, databases, or the local file system. It transforms the LLM from a simple chatbot into an active agent.
+
+- **Previous Lesson Connections**: Builds on CH3-L1 system prompts by adding actionable capabilities. Integrates CH2 file operations (get_files_info) with AI reasoning layer. Demonstrates progression: System instruction → Function calling → Agent actions
+- **Vocabulary Expansion**: `FunctionDeclaration`, `types.Schema`, `types.Type.OBJECT`, `types.Tool`, `response.function_calls`, Command Pattern
+- **Application Insights**: LLMs don't execute code - they generate structured requests. The application maintains full control and security. This architecture scales through plugin patterns as more functions are added.
+
+### Areas for Future Focus:
+
+- **Reinforcement Needed**: Understanding function call loops and multi-step reasoning chains
+- **Advanced Applications**: Multiple function declarations, function call error handling, iterative agent loops
+- **Practice Opportunities**: Add more function declarations (get_file_content, write_file), implement function execution logic, build complete agent loop
+
+### 📝 Lesson Summary: L4-Write_File
+
+- **Lesson Focus**: Secure File Writing, Filesystem Security, Path Validation
+- **Implementation Approach**: Created a `write_file` function that validates the file path against a working directory before writing content. It uses `os.path.abspath` to prevent directory traversal attacks and `os.makedirs` to create directories if they don't exist.
+- **Testing Results**: All tests passed, including the security test that attempted to write to `/tmp/temp.txt`.
+
+### Pattern Recognition Progress:
+
+- **New Patterns**: Secure File I/O Wrapper, Defensive Programming
+- **Pattern Connections**: This lesson builds on the concept of creating safe tool functions for the agent, similar to the read-only functions from previous lessons, but with the added responsibility of modifying the filesystem.
+- **Confidence Level**: High
+
+### Knowledge Integration:
+
+- **Previous Lesson Connections**: Connects to `get_files_info` and `get_file_content` by expanding the agent's interaction with the filesystem from read-only to read-write.
+- **Vocabulary Expansion**: `os.makedirs`, `os.path.dirname`, `os.path.abspath`
+- **Application Insights**: Writing files is a powerful but dangerous capability for an AI agent. Strong security measures, like restricting writes to a specific directory, are crucial.
+
+### Areas for Future Focus:
+
+- **Reinforcement Needed**: None at the moment.
+- **Advanced Applications**: Appending to files, creating temporary files, and handling binary data.
+- **Practice Opportunities**: Create a function to log agent activities to a file.
+
+### 📝 Lesson Summary: L1-Build_an_AI_Agent
+
+- **Lesson Focus**: Agentic AI: Building AI systems that can iteratively execute functions to complete complex tasks, Function Calling: Using LLMs with predefined functions to interact with external systems, CLI Agent Architecture: Creating command-line tools that accept natural language tasks, LLM Integration: Using Google Gemini API for AI-powered task processing, Iterative Problem Solving: Agents that can make multiple function calls in sequence to solve problems
+- **Applied Programming Patterns**: Environment Configuration: Using dotenv for API key management and secure credential handling, Command-Line Interface Pattern: Argument parsing with sys.argv and error handling for missing inputs, Client-Server Architecture: Initializing and using external API clients (Google Gemini) with proper error handling, Verbose Mode Implementation: Conditional output based on command-line flags for debugging and monitoring, Token Usage Tracking: Monitoring API consumption through response metadata analysis, Security-First Function Design: Path validation, working directory constraints, and input sanitization in agent functions, Defensive Programming: Comprehensive error handling with try-catch blocks and early returns for invalid states
+- **Key Insight**: This lesson demonstrates that building effective AI agents isn't about training models, but about creating secure, modular function interfaces that allow pre-trained LLMs to interact safely with external systems through iterative function calling.
+- **Skill Progression**: From basic Python CLI applications to building secure, modular AI agent architectures with external API integration and defensive programming practices.

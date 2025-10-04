@@ -10,30 +10,30 @@ Read `CLAUDE.md` to understand:
 - **Learning momentum**: Recent completion rate and confidence trends
 
 ## 2. OPTIMIZED MEMORY CONTEXT RETRIEVAL
-Query Neo4j memory for current learning state:
+**Use targeted queries instead of loading entire graph** to minimize token usage:
 
-### A. Programming Skills Assessment:
-```cypher
-MATCH (n) WHERE n.name IN [
-  'Python_Skills', 'Functional_Programming', 'Recursion_Mastery', 
-  'Boot_Dev_Course'
-] RETURN n.observations, n.level, n.status
+### A. Core Learning Entities (find_memories_by_name):
+Query only essential entities for lesson context:
+```
+find_memories_by_name([
+  'Boot_Dev_Course',
+  'Progress_Tracker',
+  'Python_Skills',
+  'AI_Agent_Architecture',
+  'Functional_Programming',
+  'default_user'
+])
 ```
 
-### B. Learning Environment Context:
-```cypher
-MATCH (n) WHERE n.name IN [
-  'Developer_Productivity', 'Linux_Environment', 'Development_Tools',
-  'Progress_Tracker'
-] RETURN n.observations, n.status
+### B. Active Learning Session (if exists):
+Query most recent learning session only:
+```
+find_memories_by_name([
+  'Learning_Session_CH3_L3_More_Declarations_2025_10_01'
+])
 ```
 
-### C. Recent Learning Sessions:
-```cypher
-MATCH (n:Learning_Session) 
-WHERE n.created_date >= date().minusDays(7)
-RETURN n ORDER BY n.created_date DESC LIMIT 3
-```
+**Note**: Avoid `read_graph()` - it loads 40+ entities and wastes ~50K tokens!
 
 ## 3. LESSON PREPARATION ANALYSIS
 Examine target lesson materials:
