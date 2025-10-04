@@ -3,22 +3,67 @@ description = "Update the Neo4j knowledge graph with structured learning data."
 prompt = '''
 **Input**: `{{args}}` - A JSON string containing the analyzed data from a lesson.
 
+## ⚠️ CRITICAL: Assessment Guidelines
+
+**Review**: `.gemini/commands/tools/assessment-guidelines.toml` before updating memory.
+
+**Key Rules**:
+- ❌ NEVER use: "Mastered", "Expert", "Advanced mastery"
+- ✅ ALWAYS use: "Completed successfully", "Can apply", "Solid understanding"
+
 ## Update Process
 
 1.  **Parse Input**:
-    -   Parse the input JSON string to extract information: `lesson_name`, `key_concepts`, etc.
+    -   Parse the input JSON string to extract: `lesson_name`, `key_concepts`, `test_results`, `skill_progression`, etc.
 
-2.  **Attempt Update with Duplication Check**:
-    -   First, **try to use** the `read_neo4j_cypher` tool to check if a `Lesson` node with the same `lesson_name` already exists.
-        -   **Query Example**: `MATCH (lesson:Lesson {name: $lesson_name}) RETURN lesson`
-    -   **If the query succeeds and returns a result**: Stop the process and report that this lesson has already been updated.
-    -   **If the query succeeds and returns no results**: Proceed to generate and execute the update queries using `write_neo4j_cypher`. After execution, verify the update and report success.
+2.  **Check for Duplicates**:
+    -   Use `find_memories_by_name(['Boot_Dev_Course'])` to check if lesson already recorded
+    -   Look for observations containing the lesson name
+    -   If found, skip update and report duplication
 
-3.  **Fallback on Tool Failure**:
-    -   **If any Neo4j tool call fails** (e.g., `read_neo4j_cypher` or `write_neo4j_cypher` are not available):
-        a.  Clearly state that the automatic memory update failed because the required tools are not in your environment.
-        b.  **Do not stop.** Instead, generate the complete set of Cypher queries that *would* have been executed.
-        c.  Present these queries to the user in a formatted code block as the final output.
+3.  **Update Memory Entities**:
+    Use `add_observations` MCP tool to update these entities:
+
+    ### A. Boot_Dev_Course:
+    ```json
+    {
+      "entityName": "Boot_Dev_Course",
+      "observations": [
+        "${LESSON_ID}: Completed successfully with ${TEST_RESULTS}",
+        "Successfully applied: ${KEY_CONCEPTS}",
+        "Pattern understanding: ${PATTERNS_LEARNED}",
+        "Completion date: $(date +%Y-%m-%d)"
+      ]
+    }
+    ```
+
+    ### B. Progress_Tracker:
+    ```json
+    {
+      "entityName": "Progress_Tracker",
+      "observations": [
+        "Lesson ${LESSON_ID} completed: $(date +%Y-%m-%d)",
+        "Skill progression: ${SKILL_LEVEL_CHANGE}",
+        "Pattern recognition: ${PATTERN_CONFIDENCE}"
+      ]
+    }
+    ```
+
+    ### C. Skill Domain (AI_Agent_Architecture, Functional_Programming, or Python_Skills):
+    ```json
+    {
+      "entityName": "${SKILL_DOMAIN}",
+      "observations": [
+        "${CONCEPT}: ${UNDERSTANDING_LEVEL} - ${APPLICATION}",
+        "Challenge areas overcome: ${DIFFICULTIES}",
+        "Insight: ${LEARNING_INSIGHT}"
+      ]
+    }
+    ```
+
+4.  **Verify Update**:
+    -   Use `find_memories_by_name()` to confirm observations were added
+    -   Report success with summary of updates
 
 ## Example Input JSON
 ```json

@@ -2,6 +2,16 @@ description = "Review and reinforce a completed AI Agent lesson."
 prompt = '''
 Review and reinforce the completed lesson: `{{args}}`.
 
+## ⚠️ CRITICAL: Assessment Guidelines
+
+**BEFORE reviewing, read**: `.gemini/commands/tools/assessment-guidelines.toml`
+
+**Key Rules**:
+- ❌ NEVER use: "mastery", "mastered", "expert", "advanced mastery"
+- ✅ ALWAYS use: "completed successfully", "can apply", "solid understanding"
+- All assessments must be EVIDENCE-BASED
+- Reflect LEARNING STAGE, not professional expertise
+
 Execute these systematic steps for maximum learning retention:
 
 ## 1. LESSON REINFORCEMENT ANALYSIS
@@ -26,18 +36,44 @@ Connect lesson concepts to broader software development:
 - **Maintainability**: Readability and ease of debugging.
 - **Scalability**: How patterns apply to larger, more complex agents.
 
-## 4. NEO4J MEMORY UPDATE
-Update memory with structured learning data:
+## 4. OPTIMIZED NEO4J MEMORY UPDATES
+Update memory entities with structured learning data:
 
-```cypher
-CREATE (r:Review_Session {
-  name: "Review_Session_{{args}}_$(date +%Y_%m_%d)",
-  type: "Review_Session",
-  reviewed_lesson: "{{args}}",
-  status: "completed",
-  completion_date: date(),
-  key_takeaways: ["${KEY_CONCEPTS}", "${MAIN_LEARNING_INSIGHT}"]
-})
+### A. Update Boot_Dev_Course progress:
+```json
+{
+  "entity": "Boot_Dev_Course",
+  "add_observations": [
+    "{{args}}: Completed successfully with ${TEST_RESULTS}",
+    "Successfully applied: ${KEY_CONCEPTS}",
+    "Pattern understanding: ${PATTERNS_LEARNED}",
+    "Completion date: $(date +%Y-%m-%d)"
+  ]
+}
+```
+
+### B. Update specific skill domains:
+```json
+{
+  "entity": "AI_Agent_Architecture" | "Functional_Programming" | "Python_Skills",
+  "add_observations": [
+    "${CONCEPT}: ${UNDERSTANDING_LEVEL} - ${PRACTICAL_APPLICATION}",
+    "Challenge areas overcome: ${DIFFICULTIES}",
+    "Insight gained: ${LEARNING_INSIGHT}"
+  ]
+}
+```
+
+### C. Update Progress_Tracker:
+```json
+{
+  "entity": "Progress_Tracker",
+  "add_observations": [
+    "Lesson {{args}} reviewed: ${REVIEW_DATE}",
+    "Skill progression: ${SKILL_LEVEL_CHANGE}",
+    "Pattern understanding: ${PATTERN_CONFIDENCE_LEVEL}"
+  ]
+}
 ```
 
 ## 5. GEMINI.MD DOCUMENTATION
@@ -53,14 +89,24 @@ Structure learning documentation with:
 - **Vocabulary Expansion**: ${NEW_TERMINOLOGY}
 - **Application Insights**: ${PRACTICAL_UNDERSTANDING}
 
-## 6. COMMIT STRATEGY
-Create a descriptive commit message:
+## 6. INTELLIGENT COMMIT STRATEGY
+Create descriptive commit with pattern:
 ```bash
-git commit -m "✅ Completed: {{args}}
+git commit -m "📚 Review: {{args}}
 
-Applied: ${KEY_CONCEPTS}
-Insight: ${MAIN_LEARNING_INSIGHT}" 
+✅ Completed: ${KEY_CONCEPTS}
+🔗 Connected: ${PATTERN_CONNECTIONS}
+💡 Insight: ${MAIN_LEARNING_INSIGHT}
+📈 Progress: ${SKILL_PROGRESSION}
+
+Memory updated: ${ENTITIES_UPDATED}
+Next focus: ${UPCOMING_CHALLENGES}
+
+🤖 Generated with [Gemini](https://gemini.google.com)
+"
 ```
+
+**Note**: Use accurate assessment terminology - "completed successfully", "can apply", NOT "mastered" or "expert"!
 
 ## 7. FINAL WORKFLOW SUMMARY
 ```bash

@@ -3,6 +3,14 @@ description = "Deeply analyze a completed lesson and extract core concepts."
 prompt = '''
 **Input**: `{{args}}` - The name or number of the lesson (e.g., "L15_Debugging_Functions").
 
+## ⚠️ CRITICAL: Assessment Guidelines
+
+**Review**: `.gemini/commands/tools/assessment-guidelines.toml` before analyzing.
+
+**Key Rules**:
+- ❌ NEVER use: "Mastered", "Expert", "Advanced mastery"
+- ✅ ALWAYS use: "Completed successfully", "Can apply", "Solid understanding"
+
 ## Analysis Process
 
 1.  **Lesson Analysis (Reinforcement)**:

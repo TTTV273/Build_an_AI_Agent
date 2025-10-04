@@ -11,21 +11,31 @@ Read `GEMINI.md` to understand:
 - **User Preferences**: How the user prefers to learn (e.g., Socratic method).
 - **Challenge areas**: Concepts that needed extra attention.
 
-## 2. MEMORY CONTEXT RETRIEVAL
-Query Neo4j memory for the current learning state:
+## 2. OPTIMIZED MEMORY CONTEXT RETRIEVAL
+**Use targeted queries instead of loading entire graph** to minimize token usage:
 
-### A. Recent Learning & Review Sessions:
-```cypher
-MATCH (n) WHERE n:Learning_Session OR n:Review_Session
-WITH n ORDER BY n.name DESC LIMIT 5
-RETURN n.name, n.observations
+### A. Core Learning Entities (find_memories_by_name):
+Query only essential entities for lesson context:
+```
+find_memories_by_name([
+  'Boot_Dev_Course',
+  'Progress_Tracker',
+  'Python_Skills',
+  'AI_Agent_Architecture',
+  'Functional_Programming',
+  'default_user'
+])
 ```
 
-### B. User Background & Business Context:
-```cypher
-MATCH (n) WHERE n.name = 'Business_Operations'
-RETURN n.name, n.observations
+### B. Active Learning Session (if exists):
+Query most recent learning session only:
 ```
+find_memories_by_name([
+  'Learning_Session_CH3_L3_More_Declarations_2025_10_01'
+])
+```
+
+**Note**: Avoid `read_graph()` - it loads 40+ entities and wastes ~50K tokens!
 
 ## 3. LESSON PREPARATION ANALYSIS
 Examine target lesson materials (`CH.../L.../Lesson.md`):
@@ -69,16 +79,44 @@ Set clear objectives for the lesson.
 ```
 
 ## 7. MEMORY INITIALIZATION FOR LESSON
-Update Neo4j with the start of the new lesson.
-```cypher
-CREATE (s:Learning_Session {
-  name: "Learning_Session_${LESSON_ID}_$(date +%Y_%m_%d)",
-  type: "Learning_Session",
-  lesson_focus: "${LESSON_NAME}",
-  status: "started",
-  start_date: date(),
-  objectives: ["${MAIN_CONCEPT}", "${PRACTICAL_USAGE}"]
-})
+Update Neo4j with lesson start data:
+
+### A. Create Lesson Session Entity:
+```json
+{
+  "name": "Learning_Session_${LESSON_ID}_$(date +%Y_%m_%d)",
+  "type": "Learning_Session",
+  "lesson_focus": "${LESSON_NAME}",
+  "status": "started",
+  "start_date": "$(date +%Y-%m-%d)",
+  "objectives": ["${LEARNING_OBJECTIVES}"],
+  "challenges_expected": ["${POTENTIAL_DIFFICULTIES}"],
+  "strategies_planned": ["${LEARNING_APPROACHES}"]
+}
+```
+
+### B. Update Boot_Dev_Course Progress:
+```json
+{
+  "entity": "Boot_Dev_Course",
+  "add_observations": [
+    "${LESSON_ID} ${LESSON_NAME}: Started $(date +%Y-%m-%d)",
+    "Prerequisites validated: ${PREREQUISITE_STATUS}",
+    "Learning strategy: ${PERSONALIZED_APPROACH}"
+  ]
+}
+```
+
+### C. Update Progress_Tracker:
+```json
+{
+  "entity": "Progress_Tracker",
+  "add_observations": [
+    "Lesson ${LESSON_ID} initiated: $(date +%Y-%m-%d)",
+    "Learning objectives set: ${OBJECTIVE_COUNT}",
+    "Strategy customization: ${PERSONALIZATION_APPLIED}"
+  ]
+}
 ```
 
 ## 8. INTERACTIVE LEARNING KICKOFF

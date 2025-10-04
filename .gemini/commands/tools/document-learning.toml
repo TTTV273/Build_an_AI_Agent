@@ -3,6 +3,14 @@ description = "Update learning documentation files (e.g., CLAUDE.MD, GEMINI.MD) 
 prompt = '''
 **Input**: `{{args}}` - A JSON string containing the analyzed data from a lesson.
 
+## ⚠️ CRITICAL: Assessment Guidelines
+
+**Review**: `.gemini/commands/tools/assessment-guidelines.toml` before documenting.
+
+**Key Rules**:
+- ❌ NEVER use: "Mastered", "Expert", "Advanced mastery"
+- ✅ ALWAYS use: "Completed successfully", "Can apply", "Solid understanding"
+
 ## Documentation Update Process
 
 1.  **Parse Input**:
