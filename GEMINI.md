@@ -112,6 +112,25 @@ This project leverages **TWO AI assistants** for optimal development:
 1. **Gemini**: Analyzes large context, provides insights (via `gemini -p "{prompt}"`)
 2. **Claude**: Executes structured workflows based on Gemini's analysis
 
+### Your File Operation Capabilities:
+You have `read_file` and `edit_file` tools - **use them directly**!
+
+**Efficient Pattern** (Use `@<file_path>` syntax):
+```bash
+# ✅ GOOD: One-step translation with direct file edit
+gemini -p "Read @path/to/Lesson.md, translate to Vietnamese, append at end"
+
+# ❌ BAD: Manual multi-step process
+gemini -p "Translate this text..." > /tmp/output
+# Then Claude manually edits file
+```
+
+**Common Tasks for You**:
+- Translation: Read lesson, translate, append to file
+- Documentation: Read code + docs, update docs
+- Analysis: Read multiple files, generate summary
+- Code review: Read files, provide insights
+
 **Full Guide**: See `.claude/docs/ai-collaboration-guide.md` for detailed patterns and examples.
 
 ---

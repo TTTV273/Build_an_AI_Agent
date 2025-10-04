@@ -64,14 +64,30 @@ This project uses **TWO AI assistants** for optimal workflow:
 2. **Large analysis**: Need to analyze 20+ files simultaneously
 3. **Deep reasoning**: Complex architectural decisions requiring massive context
 
-### Example Delegation:
+### Example Delegation Patterns:
+
+**Translation (Direct File Edit)**:
 ```bash
-# Gemini analyzes large context
+# Gemini reads, translates, and appends to file in ONE step
+gemini -p "Read @CH3-Function_Calling/L4-Calling/Lesson.md, translate English to Vietnamese, append at end with '## Vietnamese Translation (Gemini)' header"
+```
+
+**Large Context Analysis**:
+```bash
+# Gemini analyzes and saves result
 gemini -p "Analyze all Python files in CH1-CH3 and summarize patterns" > /tmp/analysis.txt
 
-# Claude processes result
-# Read /tmp/analysis.txt and continue with structured workflow
+# Claude reads result and continues workflow
+# Read /tmp/analysis.txt for insights
 ```
+
+**Multi-File Documentation**:
+```bash
+# Gemini reads multiple files and updates docs
+gemini -p "Read @main.py and @README.md, update README with code explanation"
+```
+
+**⚠️ Important**: Gemini has file operation tools (`read_file`, `edit_file`) - use `@<file_path>` syntax to let Gemini handle file operations directly instead of manual steps!
 
 **Full Guide**: See `.claude/docs/ai-collaboration-guide.md` for detailed patterns and examples.
 

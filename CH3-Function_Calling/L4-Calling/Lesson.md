@@ -85,3 +85,93 @@ print(f"-> {function_call_result.parts[0].function_response.response}")
    * Execute the calculator app's tests (`tests.py`)
 
 **Run and submit** the CLI tests.
+
+---
+
+## Vietnamese Translation (Gemini)
+
+# Gọi hàm (Calling)
+
+Được rồi, bây giờ agent của chúng ta có thể _chọn_ hàm nào để gọi, giờ là lúc thực sự _gọi_ hàm đó.
+
+## Bài tập
+
+1.  Tạo một hàm mới sẽ xử lý tác vụ trừu tượng là gọi một trong bốn hàm của chúng ta. Đây là định nghĩa của tôi:
+
+    ```py
+    def call_function(function_call_part, verbose=False):
+
+    ```
+
+    `function_call_part` là một [types.FunctionCall](https://googleapis.github.io/python-genai/genai.html#genai.types.FunctionCall) mà quan trọng nhất là có:
+
+    *   Thuộc tính `.name` (tên của hàm, một `string`)
+    *   Thuộc tính `.args` (một dictionary chứa các đối số được đặt tên cho hàm)
+
+    Nếu `verbose` được chỉ định, hãy in ra tên hàm và các đối số:
+
+    ```py
+    print(f"Calling function: {function_call_part.name}({function_call_part.args})")
+    ```
+
+    Nếu không, chỉ cần in ra tên:
+
+    ```py
+    print(f" - Calling function: {function_call_part.name}")
+    ```
+
+2.  Dựa vào tên, hãy thực sự gọi hàm và lấy kết quả.
+    * Hãy chắc chắn rằng bạn tự thêm đối số "working\_directory" vào dictionary của các đối số từ khóa (keyword arguments), vì LLM không kiểm soát đối số đó. Thư mục làm việc (working directory) phải là `./calculator`.
+    * Cú pháp để truyền một dictionary vào một hàm bằng cách sử dụng [đối số từ khóa](https://docs.python.org/3/glossary.html#term-argument) là `some_function(**some_args)`
+
+Tôi đã sử dụng một dictionary `tên hàm (string)` -> `hàm` để thực hiện điều này.
+
+3. Nếu tên hàm không hợp lệ, trả về một [types.Content](https://googleapis.github.io/python-genai/genai.html#genai.types.Content) giải thích lỗi:
+
+```py
+return types.Content(
+    role="tool",
+    parts=[
+        types.Part.from_function_response(
+            name=function_name,
+            response={"error": f"Unknown function: {function_name}"},
+        )
+    ],
+)
+
+```
+
+4. Trả về [types.Content](https://googleapis.github.io/python-genai/genai.html#genai.types.Content) với [from\_function\_response](https://googleapis.github.io/python-genai/genai.html#genai.types.Part.from%5Ffunction%5Fresponse) mô tả kết quả của lần gọi hàm:
+
+```py
+return types.Content(
+    role="tool",
+    parts=[
+        types.Part.from_function_response(
+            name=function_name,
+            response={"result": function_result},
+        )
+    ],
+)
+
+```
+
+Lưu ý rằng `from_function_response` yêu cầu response phải là một dictionary, vì vậy chúng ta chỉ cần đặt kết quả string vào trường "result".
+
+5. Quay lại nơi bạn xử lý response từ model `generate_content`, thay vì chỉ in ra tên của hàm mà LLM quyết định gọi, hãy sử dụng `call_function`.
+   * [types.Content](https://googleapis.github.io/python-genai/genai.html#genai.types.Content) mà chúng ta trả về từ `call_function` nên có `.parts[0].function_response.response` bên trong.
+   * Nếu không có, hãy `raise` một exception nghiêm trọng nào đó.
+   * Nếu có, và `verbose` đã được set, hãy in kết quả của lần gọi hàm như thế này:
+
+```py
+print(f"-> {function_call_result.parts[0].function_response.response}")
+
+```
+
+6. Kiểm tra chương trình của bạn. Bây giờ bạn sẽ có thể thực thi từng hàm với một prompt yêu cầu nó. Hãy thử một số prompt khác nhau và sử dụng flag `--verbose` để đảm bảo tất cả các hàm hoạt động.
+   * Liệt kê nội dung thư mục
+   * Lấy nội dung của một file
+   * Ghi nội dung file (đừng ghi đè lên bất cứ thứ gì quan trọng, có thể tạo một file mới)
+   * Thực thi tests của calculator app (`tests.py`)
+
+**Chạy và nộp** bài kiểm tra CLI.
